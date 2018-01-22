@@ -342,7 +342,7 @@ class Help(SpyderPluginWidget):
         self._last_editor_cb = None
 
         self.plain_text = PlainText(self)
-        self.rich_text = RichText(self)
+        #self.rich_text = RichText(self)
 
         color_scheme = self.get_color_scheme()
         self.set_plain_text_font(self.get_plugin_font(), color_scheme)
@@ -355,7 +355,7 @@ class Help(SpyderPluginWidget):
         self.plain_text.editor.readonly_menu.addSeparator()
         add_actions(self.plain_text.editor.readonly_menu, (self.wrap_action,))
 
-        self.set_rich_text_font(self.get_plugin_font('rich_text'))
+        #self.set_rich_text_font(self.get_plugin_font('rich_text'))
 
         self.shell = None
 
@@ -404,14 +404,14 @@ class Help(SpyderPluginWidget):
                                                 toggled=self.toggle_show_source)
 
         # Rich text option
-        self.rich_text_action = create_action(self, _("Rich Text"),
-                                         toggled=self.toggle_rich_text)
+        #self.rich_text_action = create_action(self, _("Rich Text"),
+        #                                 toggled=self.toggle_rich_text)
 
         # Add the help actions to an exclusive QActionGroup
         help_actions = QActionGroup(self)
         help_actions.setExclusive(True)
         help_actions.addAction(self.plain_text_action)
-        help_actions.addAction(self.rich_text_action)
+        #help_actions.addAction(self.rich_text_action)
 
         # Automatic import option
         self.auto_import_action = create_action(self, _("Automatic import"),
@@ -427,7 +427,7 @@ class Help(SpyderPluginWidget):
 
         # Option menu
         self.menu = QMenu(self)
-        add_actions(self.menu, [self.rich_text_action, self.plain_text_action,
+        add_actions(self.menu, [self.plain_text_action,
                                 self.show_source_action, MENU_SEPARATOR,
                                 self.auto_import_action, MENU_SEPARATOR,
                                 self.undock_action])
@@ -435,18 +435,19 @@ class Help(SpyderPluginWidget):
         layout_edit.addWidget(self.options_button)
 
         if self.rich_help:
-            self.switch_to_rich_text()
+            #self.switch_to_rich_text()
+            pass
         else:
             self.switch_to_plain_text()
         self.plain_text_action.setChecked(not self.rich_help)
-        self.rich_text_action.setChecked(self.rich_help)
+        #self.rich_text_action.setChecked(self.rich_help)
         self.source_changed()
 
         # Main layout
         layout = create_plugin_layout(layout_edit)
         # we have two main widgets, but only one of them is shown at a time
         layout.addWidget(self.plain_text)
-        layout.addWidget(self.rich_text)
+        #layout.addWidget(self.rich_text)
         self.setLayout(layout)
 
         # Add worker thread for handling rich text rendering
@@ -457,10 +458,10 @@ class Help(SpyderPluginWidget):
         self._sphinx_thread.error_msg.connect(self._on_sphinx_thread_error_msg)
 
         # Handle internal and external links
-        view = self.rich_text.webview
-        if not WEBENGINE:
-            view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
-        view.linkClicked.connect(self.handle_link_clicks)
+        #view = self.rich_text.webview
+        #if not WEBENGINE:
+        #    view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
+        #view.linkClicked.connect(self.handle_link_clicks)
 
         self._starting_up = True
 
@@ -504,8 +505,8 @@ class Help(SpyderPluginWidget):
         """Refresh widget"""
         if self._starting_up:
             self._starting_up = False
-            self.switch_to_rich_text()
-            self.show_intro_message()
+            #self.switch_to_rich_text()
+            #self.show_intro_message()
 
     def update_font(self):
         """Update font from Preferences"""
@@ -514,7 +515,7 @@ class Help(SpyderPluginWidget):
         rich_font = self.get_plugin_font(rich_text=True)
 
         self.set_plain_text_font(font, color_scheme=color_scheme)
-        self.set_rich_text_font(rich_font)
+        #self.set_rich_text_font(rich_font)
 
     def apply_plugin_settings(self, options):
         """Apply configuration file's plugin settings"""
@@ -579,13 +580,15 @@ class Help(SpyderPluginWidget):
             if self.is_plain_text_mode():
                 self.plain_text.clear()
             else:
-                self.rich_text.clear()
+                #self.rich_text.clear()
+                pass
         else:
             func = cb[0]
             args = cb[1:]
             func(*args)
             if get_meth_class_inst(func) is self.rich_text:
-                self.switch_to_rich_text()
+                #self.switch_to_rich_text()
+                pass
             else:
                 self.switch_to_plain_text()
 
@@ -595,7 +598,8 @@ class Help(SpyderPluginWidget):
         if self.plain_text.isVisible():
             return self.plain_text.find_widget
         else:
-            return self.rich_text.find_widget
+            #return self.rich_text.find_widget
+            pass
 
     def set_rich_text_font(self, font):
         """Set rich text mode font"""
@@ -631,7 +635,7 @@ class Help(SpyderPluginWidget):
         """Switch to plain text mode"""
         self.rich_help = False
         self.plain_text.show()
-        self.rich_text.hide()
+        #self.rich_text.hide()
         self.plain_text_action.setChecked(True)
 
     def switch_to_rich_text(self):
@@ -675,8 +679,9 @@ class Help(SpyderPluginWidget):
 
     def set_rich_text_html(self, html_text, base_url):
         """Set rich text"""
-        self.rich_text.set_html(html_text, base_url)
-        self.save_text([self.rich_text.set_html, html_text, base_url])
+        #self.rich_text.set_html(html_text, base_url)
+        #self.save_text([self.rich_text.set_html, html_text, base_url])
+        pass
 
     def show_intro_message(self):
         intro_message = _("Here you can get help of any object by pressing "
@@ -728,7 +733,7 @@ class Help(SpyderPluginWidget):
         tutorial_path = get_module_source_path('spyder.utils.help')
         tutorial = osp.join(tutorial_path, 'tutorial.rst')
         text = open(tutorial).read()
-        self.show_rich_text(text, collapse=True)
+        #self.show_rich_text(text, collapse=True)
 
     def handle_link_clicks(self, url):
         url = to_text_string(url.toString())
