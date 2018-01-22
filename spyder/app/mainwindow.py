@@ -1206,6 +1206,13 @@ class MainWindow(QMainWindow):
         self.debug_print("*** End of MainWindow setup ***")
         self.is_starting_up = False
 
+    def fix_plugins_size(self):
+        """Fix plugins size so users can't alter it."""
+        for plugin in self.widgetlist:
+            size = plugin.dockwidget.size()
+            plugin.dockwidget.setMinimumSize(size)
+            plugin.dockwidget.setMaximumSize(size)
+
     def post_visible_setup(self):
         """Actions to be performed only after the main window's `show` method
         was triggered"""
@@ -1290,6 +1297,9 @@ class MainWindow(QMainWindow):
 
         # Show dialog with missing dependencies
         self.report_missing_dependencies()
+
+        # Fix plugins size
+        self.fix_plugins_size()
 
         # Raise the menuBar to the top of the main window widget's stack
         # (Fixes issue 3887)
