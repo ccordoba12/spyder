@@ -21,7 +21,8 @@ from qtpy.QtWebEngineWidgets import QWebEnginePage, WEBENGINE
 
 # Local imports
 from spyder import dependencies
-from spyder.config.base import _, get_conf_path, get_module_source_path
+from spyder.config.base import (_, get_conf_path, get_module_path,
+                                get_module_source_path)
 from spyder.config.fonts import DEFAULT_SMALL_DELTA
 from spyder.api.plugins import SpyderPluginWidget
 from spyder.api.preferences import PluginConfigPage
@@ -462,6 +463,10 @@ class Help(SpyderPluginWidget):
         #if not WEBENGINE:
         #    view.page().setLinkDelegationPolicy(QWebEnginePage.DelegateAllLinks)
         #view.linkClicked.connect(self.handle_link_clicks)
+
+        help_file = osp.join(get_module_path('spyder'), 'help.txt')
+        help_text = open(help_file).read()
+        self.set_plain_text(help_text, is_code=False)
 
         self._starting_up = True
 
