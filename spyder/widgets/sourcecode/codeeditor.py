@@ -363,6 +363,8 @@ class CodeEditor(TextEditBaseWidget):
         # functions or signals for objects not created from Python" in
         # Linux Ubuntu. See PR #5215.
         self.setVerticalScrollBar(QScrollBar())
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
         # Scrollbar flag area
         self.scrollflagarea = self.panels.register(ScrollFlagArea(self),
@@ -628,7 +630,7 @@ class CodeEditor(TextEditBaseWidget):
                      font=None, color_scheme=None, wrap=False, tab_mode=True,
                      intelligent_backspace=True, highlight_current_line=True,
                      highlight_current_cell=True, occurrence_highlighting=True,
-                     scrollflagarea=True, edge_line=True, edge_line_columns=(79,),
+                     scrollflagarea=False, edge_line=True, edge_line_columns=(79,),
                      codecompletion_auto=False, codecompletion_case=True,
                      codecompletion_enter=False, show_blanks=False,
                      calltips=None, go_to_definition=False,
