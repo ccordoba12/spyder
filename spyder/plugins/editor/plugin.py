@@ -287,7 +287,8 @@ class Editor(SpyderPluginWidget):
                         language.lower()])
             else:
                 editor = self.get_current_editor()
-                editor.lsp_ready = False
+                if editor is not None:
+                    editor.lsp_ready = False
 
     @Slot(dict, str)
     def document_server_settings(self, settings, language):
