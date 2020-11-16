@@ -5,8 +5,8 @@
 ;
 [subrepo]
 	remote = https://github.com/spyder-ide/spyder-kernels.git
-	branch = master
-	commit = 476762167fea06587525a504e33459e01763b520
-	parent = c4206339fb2d954266e53b1c04f1017535cf5da1
+	branch = delayed-modules
+	commit = 318a404734fa1113850fb67035bb3a1bdc11702c
+	parent = 03f9e5bb323c4f4735384c12f9b6ead694435475
 	method = merge
 	cmdver = 0.4.1
