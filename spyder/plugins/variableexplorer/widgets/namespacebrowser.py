@@ -23,7 +23,7 @@ from qtpy.QtWidgets import (QApplication, QHBoxLayout, QInputDialog, QMenu,
 
 from spyder_kernels.utils.iofuncs import iofunctions
 from spyder_kernels.utils.misc import fix_reference_name
-from spyder_kernels.utils.nsview import get_supported_types, REMOTE_SETTINGS
+from spyder_kernels.utils.nsview import REMOTE_SETTINGS
 
 # Local imports
 from spyder.config.base import _
@@ -40,8 +40,6 @@ from spyder.plugins.variableexplorer.widgets.importwizard import ImportWizard
 from spyder.widgets.collectionseditor import RemoteCollectionsEditorTableView
 from spyder.widgets.helperwidgets import FinderLineEdit
 
-
-SUPPORTED_TYPES = get_supported_types()
 
 if PY2:
     VALID_VARIABLE_CHARS = r"[a-zA-z0-9_]"

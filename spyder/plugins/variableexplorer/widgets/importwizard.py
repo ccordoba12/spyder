@@ -10,6 +10,7 @@ Text data Importing Wizard based on Qt
 
 # Standard library imports
 from __future__ import print_function
+import datetime
 from functools import partial as ft_partial
 
 # Third party imports
@@ -21,13 +22,9 @@ from qtpy.QtWidgets import (QCheckBox, QDialog, QFrame, QGridLayout, QGroupBox,
                             QPushButton, QMenu, QMessageBox, QRadioButton,
                             QSizePolicy, QSpacerItem, QTableView, QTabWidget,
                             QTextEdit, QVBoxLayout, QWidget)
-
-# If pandas fails to import here (for any reason), Spyder
-# will crash at startup.
-try:
-    import pandas as pd
-except:
-    pd = None
+from spyder_kernels.utils.delayedmods import FakeObject
+from spyder_kernels.utils.delayedmods import numpy as np
+from spyder_kernels.utils.delayedmods import pandas as pd
 
 # Local import
 from spyder.config.base import _
@@ -49,28 +46,15 @@ def try_to_parse(value):
             pass
     return value
 
+
 def try_to_eval(value):
     try:
         return eval(value)
     except (NameError, SyntaxError, ImportError):
         return value
 
-#----Numpy arrays support
-class FakeObject(object):
-    """Fake class used in replacement of missing modules"""
-    pass
-try:
-    from numpy import ndarray
-except:
-    ndarray = FakeObject()  # analysis:ignore
-
-try:
-    from numpy import array
-except:
-    array = FakeObject()  # analysis:ignore
 
 #----date and datetime objects support
-import datetime
 try:
     from dateutil.parser import parse as dateparse
 except:
@@ -85,24 +69,24 @@ def datestr_to_datetime(value, dayfirst=True):
     return dateparse(value, dayfirst=dayfirst)
 
 #----Background colors for supported types
-COLORS = {
-          bool: Qt.magenta,
-          tuple([float] + list(INT_TYPES)): Qt.blue,
-          list: Qt.yellow,
-          set: Qt.darkGreen,
-          dict: Qt.cyan,
-          tuple: Qt.lightGray,
-          TEXT_TYPES: Qt.darkRed,
-          ndarray: Qt.green,
-          datetime.date: Qt.darkYellow,
-          }
-
 def get_color(value, alpha):
     """Return color depending on value type"""
+    colors = {
+        bool: Qt.magenta,
+        tuple([float] + list(INT_TYPES)): Qt.blue,
+        list: Qt.yellow,
+        set: Qt.darkGreen,
+        dict: Qt.cyan,
+        tuple: Qt.lightGray,
+        TEXT_TYPES: Qt.darkRed,
+        np.ndarray: Qt.green,
+        datetime.date: Qt.darkYellow,
+    }
+
     color = QColor()
-    for typ in COLORS:
+    for typ in colors:
         if isinstance(value, typ):
-            color = QColor(COLORS[typ])
+            color = QColor(colors[typ])
     color.setAlphaF(alpha)
     return color
 
@@ -445,8 +429,8 @@ class PreviewWidget(QWidget):
 
         self.array_btn = array_btn = QRadioButton(_("array"))
         available_array = (
-            not isinstance(ndarray, FakeObject) and
-            not isinstance(array, FakeObject))
+            not isinstance(np.ndarray, FakeObject) and
+            not isinstance(np.array, FakeObject))
         array_btn.setEnabled(available_array)
         array_btn.setChecked(available_array)
         type_layout.addWidget(array_btn)
