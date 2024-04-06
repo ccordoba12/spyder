@@ -38,7 +38,7 @@ from spyder.api.translations import _
 from spyder.config.base import running_under_pytest
 from spyder.utils.icon_manager import ima
 from spyder.utils.palette import SpyderPalette
-from spyder.utils.stylesheet import AppStyle
+from spyder.utils.stylesheet import AppStyle, MAC
 from spyder.widgets.helperwidgets import TipWidget
 
 # Constants
@@ -312,6 +312,7 @@ class ArrayBuilderDialog(QDialog):
             3 * AppStyle.MarginSize
         )
         layout.addWidget(self._widget)
+        layout.addSpacing(-(AppStyle.MarginSize + 1) if MAC else 0)
         layout.addLayout(buttons_layout)
         self.setLayout(layout)
 

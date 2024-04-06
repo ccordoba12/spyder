@@ -184,8 +184,8 @@ def qt_message_handler(msg_type, msg_log_context, msg_string):
         'QMainWidget::resizeDocks: all sizes need to be larger than 0',
         # This is shown at startup due to our splash screen but it's harmless
         "fromIccProfile: failed minimal tag size sanity",
-        # This is shown when expanding/collpasing folders in the Files plugin
-        # after spyder-ide/spyder#
+        # This is shown when expanding/collapsing folders in the Files plugin
+        # after spyder-ide/spyder#21813.
         "QFont::setPixelSize: Pixel size <= 0 (0)",
     ]
     if msg_string not in BLACKLIST:
