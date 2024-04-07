@@ -1714,26 +1714,29 @@ class CollectionsEditor(BaseDialog):
             self.save_and_close_enable)
 
         # Buttons configuration
-        btn_layout = QHBoxLayout()
-        btn_layout.addStretch()
+        from spyder.api.widgets.dialogs import SpyderDialogButtonBox
+        from qtpy.QtWidgets import QDialogButtonBox
+        bbox = SpyderDialogButtonBox(parent=self)
+        bbox.layout().addStretch()
+        #btn_layout.addStretch()
 
         if not readonly:
             self.btn_save_and_close = QPushButton(_('Save and Close'))
             self.btn_save_and_close.setDisabled(True)
             self.btn_save_and_close.clicked.connect(self.accept)
-            btn_layout.addWidget(self.btn_save_and_close)
+            bbox.addButton(self.btn_save_and_close, QDialogButtonBox.AcceptRole)
 
         self.btn_close = QPushButton(_('Close'))
         self.btn_close.setAutoDefault(True)
         self.btn_close.setDefault(True)
         self.btn_close.clicked.connect(self.reject)
-        btn_layout.addWidget(self.btn_close)
+        bbox.addButton(self.btn_close, QDialogButtonBox.RejectRole)
 
         # CollectionEditor widget layout
         layout = QVBoxLayout()
         layout.addWidget(self.widget)
         layout.addSpacing(AppStyle.MarginForButtons)
-        layout.addLayout(btn_layout)
+        layout.addWidget(bbox)
         self.setLayout(layout)
 
         self.setWindowTitle(self.widget.get_title())
