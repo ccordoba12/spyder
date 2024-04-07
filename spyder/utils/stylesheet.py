@@ -347,8 +347,8 @@ class ApplicationToolbarStylesheet(SpyderStyleSheet):
         )
 
 
-class PanesToolbarStyleSheet(SpyderStyleSheet):
-    """Stylesheet for pane toolbars."""
+class BaseToolbarStyleSheet(SpyderStyleSheet):
+    """Base stylesheet for toolbars."""
 
     # These values make buttons to be displayed at 44px according to Gammaray
     BUTTON_WIDTH = '37px'
@@ -365,7 +365,6 @@ class PanesToolbarStyleSheet(SpyderStyleSheet):
             height=self.BUTTON_HEIGHT,
             width=self.BUTTON_WIDTH,
             border='0px',
-            borderRadius='0px',
             margin='0px'
         )
 
@@ -375,6 +374,21 @@ class PanesToolbarStyleSheet(SpyderStyleSheet):
         )
 
 
+class PanesToolbarStyleSheet(BaseToolbarStyleSheet):
+    """Stylesheet for pane toolbars."""
+
+    def set_stylesheet(self):
+        super().set_stylesheet()
+        css = self.get_stylesheet()
+
+        css.QToolButton.setValues(
+            # A border radius in pane toolbars looks like a visual glitch so
+            # we need to remove it.
+            borderRadius="0px"
+        )
+
+
+BASE_TOOLBAR_STYLESHEET = BaseToolbarStyleSheet()
 APP_TOOLBAR_STYLESHEET = ApplicationToolbarStylesheet()
 PANES_TOOLBAR_STYLESHEET = PanesToolbarStyleSheet()
 

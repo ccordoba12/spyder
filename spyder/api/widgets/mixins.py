@@ -37,7 +37,7 @@ from spyder.utils.image_path_manager import get_image_path
 from spyder.utils.qthelpers import create_action, create_toolbutton
 from spyder.utils.registries import (
     ACTION_REGISTRY, MENU_REGISTRY, TOOLBAR_REGISTRY, TOOLBUTTON_REGISTRY)
-from spyder.utils.stylesheet import PANES_TOOLBAR_STYLESHEET
+from spyder.utils.stylesheet import BASE_TOOLBAR_STYLESHEET
 
 
 class SpyderToolButtonMixin:
@@ -184,7 +184,7 @@ class SpyderToolbarMixin:
             Whether to register the toolbar in the global registry.
         """
         toolbar = SpyderToolbar(self, name)
-        toolbar.setStyleSheet(str(PANES_TOOLBAR_STYLESHEET))
+        toolbar.setStyleSheet(str(BASE_TOOLBAR_STYLESHEET))
         if register:
             TOOLBAR_REGISTRY.register_reference(
                 toolbar, name, self.PLUGIN_NAME, self.CONTEXT_NAME

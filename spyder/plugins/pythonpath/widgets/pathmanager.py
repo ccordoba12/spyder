@@ -30,7 +30,7 @@ from spyder.utils.environ import get_user_env, set_user_env
 from spyder.utils.misc import getcwd_or_home
 from spyder.utils.stylesheet import (
     AppStyle,
-    PANES_TOOLBAR_STYLESHEET,
+    BASE_TOOLBAR_STYLESHEET,
     WIN
 )
 
@@ -241,7 +241,7 @@ class PathManager(QDialog, SpyderWidgetMixin):
     def _stylesheet(self):
         """Style for the list of paths"""
         # This is necessary to match the buttons style with the rest of Spyder
-        toolbar_stylesheet = PANES_TOOLBAR_STYLESHEET.get_copy()
+        toolbar_stylesheet = BASE_TOOLBAR_STYLESHEET.get_copy()
         css = toolbar_stylesheet.get_stylesheet()
 
         css.QListView.setValues(
