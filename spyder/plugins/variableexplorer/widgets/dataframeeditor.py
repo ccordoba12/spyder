@@ -1837,7 +1837,7 @@ class DataFrameEditor(BaseDialog, SpyderWidgetMixin):
         self.layout.addSpacing(-default_spacing)
 
         self.layout.addLayout(self.glayout)
-        self.layout.addSpacing((-1 if MAC else 2) * AppStyle.MarginSize)
+        self.layout.addSpacing(AppStyle.MarginForButtons)
         self.layout.addLayout(btn_layout)
         self.setLayout(self.layout)
 

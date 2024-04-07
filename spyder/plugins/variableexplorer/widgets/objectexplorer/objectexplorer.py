@@ -31,7 +31,7 @@ from spyder.plugins.variableexplorer.widgets.objectexplorer import (
     TreeItem, TreeModel, TreeProxyModel)
 from spyder.utils.icon_manager import ima
 from spyder.utils.qthelpers import qapplication
-from spyder.utils.stylesheet import AppStyle, MAC
+from spyder.utils.stylesheet import AppStyle
 from spyder.widgets.simplecodeeditor import SimpleCodeEditor
 
 
@@ -370,7 +370,7 @@ class ObjectExplorer(BaseDialog, SpyderFontsMixin, SpyderWidgetMixin):
         layout.addSpacing(-default_spacing)
 
         layout.addWidget(self.central_splitter)
-        layout.addSpacing((-1 if MAC else 2) * AppStyle.MarginSize)
+        layout.addSpacing(AppStyle.MarginForButtons)
         layout.addLayout(btn_layout)
         self.setLayout(layout)
 

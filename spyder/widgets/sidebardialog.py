@@ -163,9 +163,7 @@ class SidebarDialog(QDialog, SpyderFontsMixin):
 
         layout = QVBoxLayout()
         layout.addLayout(contents_and_pages_layout)
-        layout.addSpacing(
-            - (2 * AppStyle.MarginSize) if MAC else AppStyle.MarginSize
-        )
+        layout.addSpacing(AppStyle.MarginForButtons)
         layout.addLayout(buttons_layout)
 
         self.setLayout(layout)

@@ -44,6 +44,9 @@ class AppStyle(SpyderFontsMixin):
     # To have it for quick access because it's needed a lot in Mac
     MacScrollBarWidth = 16  # px
 
+    # Margin between main widget and buttons in a dialog
+    MarginForButtons = (-2 if MAC else 1) * MarginSize
+
     @classproperty
     def _fs(cls):
         """Interface font size in points."""

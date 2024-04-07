@@ -30,7 +30,6 @@ from spyder.utils.environ import get_user_env, set_user_env
 from spyder.utils.misc import getcwd_or_home
 from spyder.utils.stylesheet import (
     AppStyle,
-    MAC,
     PANES_TOOLBAR_STYLESHEET,
     WIN
 )
@@ -133,7 +132,7 @@ class PathManager(QDialog, SpyderWidgetMixin):
         layout.addWidget(description)
         layout.addSpacing(2 * AppStyle.MarginSize)
         layout.addLayout(middle_layout)
-        layout.addSpacing((-1 if MAC else 2) * AppStyle.MarginSize)
+        layout.addSpacing(AppStyle.MarginForButtons)
         layout.addWidget(self.bbox)
         self.setLayout(layout)
 

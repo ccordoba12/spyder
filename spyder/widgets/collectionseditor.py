@@ -60,7 +60,7 @@ from spyder.plugins.variableexplorer.widgets.importwizard import ImportWizard
 from spyder.widgets.helperwidgets import CustomSortFilterProxy
 from spyder.plugins.variableexplorer.widgets.basedialog import BaseDialog
 from spyder.utils.palette import SpyderPalette
-from spyder.utils.stylesheet import AppStyle, MAC
+from spyder.utils.stylesheet import AppStyle
 
 
 # =============================================================================
@@ -1732,7 +1732,7 @@ class CollectionsEditor(BaseDialog):
         # CollectionEditor widget layout
         layout = QVBoxLayout()
         layout.addWidget(self.widget)
-        layout.addSpacing((-1 if MAC else 2) * AppStyle.MarginSize)
+        layout.addSpacing(AppStyle.MarginForButtons)
         layout.addLayout(btn_layout)
         self.setLayout(layout)
 
