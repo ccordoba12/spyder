@@ -1834,7 +1834,10 @@ class DataFrameEditor(BaseDialog, SpyderWidgetMixin):
         # Remove vertical space between toolbar and data frame
         style = self.style()
         default_spacing = style.pixelMetric(QStyle.PM_LayoutVerticalSpacing)
-        self.layout.addSpacing(-default_spacing)
+        self.layout.addSpacing(
+            # default_spacing returns -1 on Mac so we need to set this by hand
+            -(4 * AppStyle.MarginSize if MAC else default_spacing)
+        )
 
         self.layout.addLayout(self.glayout)
         self.layout.addSpacing(AppStyle.MarginForButtons)
