@@ -296,7 +296,6 @@ class SpyderComboBox(_SpyderComboBoxMixin, QComboBox):
 
         self.is_editable: bool | None = None
         self._is_shown = False
-        self._is_popup_shown = False
 
         # It seems Mac automatically elides items if no elide mode is set
         # explicitly
@@ -358,12 +357,10 @@ class SpyderComboBox(_SpyderComboBoxMixin, QComboBox):
             # Reposition popup to display it in the right place.
             # Solution from https://forum.qt.io/post/349517
             popup = self.findChild(QFrame)
-            popup.move(popup.x() - 3, popup.y() + 4)
+            popup.move(popup.x() - 2, popup.y() + 4)
 
-            # Adjust width to match the lineEdit one.
-            if not self._is_popup_shown:
-                popup.setFixedWidth(popup.width() + 2)
-                self._is_popup_shown = True
+            # Adjust width to match the combobox one.
+            popup.setFixedWidth(self.width())
         else:
             # Make borders straight to make popup feel as part of the combobox.
             # This doesn't work reliably on Mac.
