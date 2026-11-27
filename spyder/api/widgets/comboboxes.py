@@ -298,6 +298,11 @@ class SpyderComboBox(_SpyderComboBoxMixin, QComboBox):
         self._is_shown = False
         self._is_popup_shown = False
 
+        # It seems Mac automatically elides items if no elide mode is set
+        # explicitly
+        if sys.platform == "darwin" and items_elide_mode is None:
+            items_elide_mode = Qt.ElideNone
+
         # This is necessary to have more fine-grained control over the style of
         # our comboboxes with css, e.g. to add more padding between its items.
         # See https://stackoverflow.com/a/33464045/438386 for the details.
